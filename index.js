@@ -14,12 +14,22 @@ require('dotenv').config({
 })
 
 
-const token = process.env['TOKEN_DEV'] //replit.com
-/*const token =
-    process.env.NODE_ENV === 'development'
+let token;
+let replit = Boolean(process.env['TOKEN_DEV']);
+
+if (replit) {
+    token = process.env['TOKEN_DEV'];
+    console.log("Running on Replit.com");
+} else {
+    token = process.env.NODE_ENV === 'development'
         ? process.env.TOKEN_DEV
-        : process.env.TOKEN_PROD
-*/
+        : process.env.TOKEN_PROD;
+}
+
+if (!token) {
+    console.error("Token not found.");
+}
+
 client.once('ready', () => {
     console.log('Bot Ready!')
 
